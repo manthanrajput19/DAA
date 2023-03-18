@@ -1,0 +1,34 @@
+class Solution {
+    public void swap(int[] a, int i, int j) {
+    int temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+}
+
+public int heightChecker(int[] heights) {
+    int n = heights.length;
+    int[] exp = new int[n];
+    
+    for (int i = 0; i < n; i++) {
+        exp[i] = heights[i];
+    }
+    
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (exp[j] > exp[j + 1]) {
+                swap(exp, j, j + 1);
+            }
+        }
+    }
+    
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+        if (exp[i] != heights[i]) {
+            count++;
+        }
+    }
+    
+    return count;
+}
+
+}
