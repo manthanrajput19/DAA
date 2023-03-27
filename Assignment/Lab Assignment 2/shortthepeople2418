@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
+        map<int , string , greater<int>> m;
+        int i=0;
+        while(i<names.size())
+        {
+            m.insert(make_pair(heights[i],names[i]));
+            i++;
+        }
+        vector<string> v;
+        for(auto it=m.begin();it!=m.end();it++)
+        {
+            v.push_back((*it).second);
+        }
+        return v;
+    }
+};
