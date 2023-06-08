@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+void findPairs(int n, vector<int>& nums) {
+unordered_map<int, pair<int, int>> hash_table;
+for (int i = 0; i < n - 1; i++)
+{ for (int j = i + 1; j < n;
+j++) {
+int product = nums[i] * nums[j];
+if (hash_table.count(product)) {
+pair<int, int> existingPair = hash_table[product];
+cout << "Pair (" << existingPair.first << ", " <<
+existingPair.second << ")" << endl;
+cout << "Pair (" << nums[i] << ", " << nums[j] << ")" <<
+endl;return;
+} else {
+hash_table[product] = make_pair(nums[i], nums[j]);
+}
+}
+}
+cout << "No such pairs exist" << endl;
+}
+int main() {
+int n;
+cout << "Enter the size of the array: ";
+cin >> n;
+vector<int> nums(n);
+cout << "Enter the elements of the array: ";
+for (int i = 0; i < n; i++) {
+cin >> nums[i];
+}
+findPairs(n, nums);
+return 0;
+}
