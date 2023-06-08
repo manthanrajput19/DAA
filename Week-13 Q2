@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+using namespace std;
+bool containsDuplicateWithinWindow(const vector<int>& nums, int
+k) {
+int n = nums.size();
+unordered_set<int> window;
+for (int i = 0; i < n; i++)
+{if (i > k)
+window.erase(nums[i - k - 1]);
+if (window.count(nums[i]) >
+0)return true;
+window.insert(nums[i]);
+}
+return false;
+}
+int main() {
+int T;
+cout << "Enter the number of test cases: ";
+cin >> T;
+for (int t = 0; t < T; t++)
+{int n;
+cout << "Enter the size of the array: ";
+cin >> n;
+vector<int> nums(n);
+cout << "Enter the array elements: ";
+for (int i = 0; i < n; i++) {
+cin >> nums[i];
+}
+int k;
+cout << "Enter the window size: ";
+cin >> k;
+bool containsDuplicate = containsDuplicateWithinWindow(nums,
+k);
+if (containsDuplicate) {
+cout << "Duplicate present in window " << k << endl;
+} else {
+cout << "Duplicate not present in window " << k << endl;
+}
+}
+return 0;
+}
