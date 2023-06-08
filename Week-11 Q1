@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <limits>
+using namespace std;
+int matrixChainMultiplication(vector<vector<int>>& dimensions)
+{int n = dimensions.size() - 1;
+vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+for (int chainLen = 2; chainLen <= n; chainLen++) {
+for (int i = 1; i <= n - chainLen + 1; i++) {
+int j = i + chainLen - 1;
+dp[i][j] = numeric_limits<int>::max();
+for (int k = i; k < j; k++) {
+int operations = dp[i][k] + dp[k + 1][j] +
+dimensions[i][0] * dimensions[k][1] *
+dimensions[j][1];
+dp[i][j] = min(dp[i][j], operations);
+}
+}
+}
+return dp[1][n];
+}
+int main() {
+int n;
+cout << "Enter the number of matrices: ";
+cin >> n;
+vector<vector<int>> dimensions(n + 1, vector<int>(2));
+cout << "Enter the dimensions of the matrices:" << endl;
+for (int i = 1; i <= n; i++) {
+cout << "Matrix " << i << ": ";
+cin >> dimensions[i][0] >> dimensions[i][1];
+}
+int minOperations = matrixChainMultiplication(dimensions);
+cout << "Minimum number of operations: " << minOperations <<
+endl;
+return 0;
+}
