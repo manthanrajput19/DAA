@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+bool partitionUtil(vector<int>& nums, int index, vector<int>&
+subset, int sum1, int sum2, int targetSum) {
+if (sum1 == targetSum && sum2 == targetSum) {
+return true;
+}
+if (sum1 > targetSum || sum2 > targetSum || index ==
+nums.size()) {
+return false;
+}
+subset.push_back(nums[index]);
+bool found = partitionUtil(nums, index + 1, subset, sum1 +
+nums[index], sum2, targetSum);
+if (!found) {
+subset.pop_back();
+found = partitionUtil(nums, index + 1, subset, sum1, sum2
++ nums[index], targetSum);
+}
+return found;
+}
+bool canPartition(vector<int>& nums)
+{int sum = 0;
+for (int num : nums) {
+sum += num;
+}
+if (sum % 2 != 0)
+{return false;
+}
+int targetSum = sum / 2;
+vector<int> subset;
+return partitionUtil(nums, 0, subset, 0, 0, targetSum);
+}
+int main()
+{int n;
+cout << "Enter the number of elements: ";
+cin >> n;
+vector<int> nums(n);
+cout << "Enter the elements: ";
+for (int i = 0; i < n; i++) {
+cin >> nums[i];
+}
+bool isPartitionPossible = canPartition(nums);
+if (isPartitionPossible) {
+cout << "yes" << endl;
+} else {
+cout << "no";
+}
+}
