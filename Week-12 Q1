@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include
+<algorithm>
+using namespace std;
+pair<int, string> longestCommonSubsequence(string& seq1, string&
+seq2) {
+int m = seq1.length();
+int n = seq2.length();
+vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+for (int i = 1; i <= m; i++)
+{ for (int j = 1; j <= n;
+j++) {
+if (seq1[i - 1] == seq2[j - 1]) {
+dp[i][j] = dp[i - 1][j - 1] + 1;
+} else {
+dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+}
+}
+}
+int length = dp[m][n];
+string subsequence;
+int i = m, j = n;
+while (i > 0 && j > 0) {
+if (seq1[i - 1] == seq2[j - 1]) {
+subsequence.push_back(seq1[i - 1]);
+i--;
+j--;
+} else if (dp[i - 1][j] > dp[i][j -
+1]) {i--;
+} else
+{j--;
+}
+}
+reverse(subsequence.begin(), subsequence.end());
+return make_pair(length, subsequence);
+}
+int main() {
+string seq1, seq2;
+cout << "Enter sequence 1: ";
+cin >> seq1;
+cout << "Enter sequence 2: ";
+cin >> seq2;
+pair<int, string> result = longestCommonSubsequence(seq1, seq2);
+cout << "Length of the longest common subsequence: " <<
+result.first << endl;
+cout << "Longest common subsequence: " << result.second <<
+endl;
+return 0;
+}
