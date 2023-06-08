@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+using namespace std;
+void findDistinctCharacters(int n, vector<char>& chars) {
+unordered_map<char, int> hash_table;
+for (int i = 0; i < n; i++) {
+hash_table[chars[i]]++;
+}
+vector<char> distinctChars;
+for (const auto& entry : hash_table) {
+distinctChars.push_back(entry.first);
+}
+sort(distinctChars.begin(), distinctChars.end());
+cout << "Distinct characters and their frequency:" << endl;
+for (const auto& c : distinctChars) {
+cout << "Character: " << c << ", Frequency: " << hash_table[c]
+<<endl;
+}
+}
+int main() {
+int n;
+cout << "Enter the size of the character array: ";
+cin >> n;
+vector<char> chars(n);
+cout << "Enter the elements of the character array: ";
+for (int i = 0; i < n; i++) {
+cin >> chars[i];
+}
+findDistinctCharacters(n, chars);
+return 0;
+}
