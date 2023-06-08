@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include
+<algorithm>
+using namespace std;
+int getNthUglyNumber(int n) {
+vector<int>
+uglyNumbers(n);
+uglyNumbers[0] = 1;
+int idx2 = 0, idx3 = 0, idx5 = 0;
+int factor2 = 2, factor3 = 3, factor5 = 5;
+for (int i = 1; i < n; i++) {
+int nextUgly = min({factor2, factor3,
+factor5});uglyNumbers[i] = nextUgly;
+if (nextUgly == factor2)
+{idx2++;
+factor2 = uglyNumbers[idx2] * 2;
+}
+if (nextUgly == factor3)
+{idx3++;
+factor3 = uglyNumbers[idx3] * 3;
+}
+if (nextUgly == factor5)
+{idx5++;
+factor5 = uglyNumbers[idx5] * 5;
+}
+}
+return uglyNumbers[n - 1];
+}
+int main() {
+int T;
+cout << "Enter the number of test cases: ";
+cin >> T;
+for (int t = 0; t < T; t++)
+{int n;
+cout << "Enter the value of n: ";
+cin >> n;
+int nthUglyNumber = getNthUglyNumber(n);
+cout << "The " << n << "th ugly number is: " << nthUglyNumber
+<< endl;
+}
+return 0;
+}
